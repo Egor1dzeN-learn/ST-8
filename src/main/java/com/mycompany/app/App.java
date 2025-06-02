@@ -1,6 +1,6 @@
-package com.example.app;
+package com.mycompany.app;
 
-import com.example.app.Entity.MusicAlbum;
+import com.mycompany.app.Entity.MusicAlbum;
 import com.google.gson.Gson;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
