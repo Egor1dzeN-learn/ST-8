@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
+public class App {
     static final String ARTIST_INPUT = "/html/body/table[2]/tbody/tr/td[1]/div/form/table/tbody/tr[1]/td[2]/input";
     static final String TITLE_INPUT = "/html/body/table[2]/tbody/tr/td[1]/div/form/table/tbody/tr[2]/td[2]/input";
     static final String TRACK_LEFT_INPUT = "/html/body/table[2]/tbody/tr/td[1]/div/form/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/table/tbody/tr[%d]/td[2]/input";
