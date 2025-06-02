@@ -26,20 +26,20 @@ public class Main {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.webDriver", "C:\\Users\\egorm\\Downloads\\chromedriver-win64\\chromedriver.exe");
         Path outputDir = Paths.get("result");
-        ChromeOptions options = new ChromeOptions();
+        ChromeOptions chromeOptions = new ChromeOptions();
         Map<String, Object> prefs = Map.of(
                 "download.default_directory", outputDir.toString(),
                 "download.prompt_for_download", false,
                 "plugins.always_open_pdf_externally", true
         );
-        options.setExperimentalOption("prefs", prefs);
+        chromeOptions.setExperimentalOption("prefs", prefs);
 
-        WebDriver webDriver = new ChromeDriver(options);
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
 
         try {
-            String content = Files.readString(Paths.get("data/data.txt"));
+            String data = Files.readString(Paths.get("data/data.txt"));
             Gson gson = new Gson();
-            MusicAlbum musicAlbum = gson.fromJson(content, MusicAlbum.class);
+            MusicAlbum musicAlbum = gson.fromJson(data, MusicAlbum.class);
 
             webDriver.manage().window().maximize();
             webDriver.get("https://www.papercdcase.com/index.php");
@@ -62,8 +62,8 @@ public class Main {
                 webDriver.findElement(By.xpath(xpath)).sendKeys(rightTracks.get(i));
             }
 
-            WebElement jewelCase = webDriver.findElement(By.xpath(CASE_TYPE_INPUT));
-            if (!jewelCase.isSelected()) jewelCase.click();
+            WebElement webDriverElement = webDriver.findElement(By.xpath(CASE_TYPE_INPUT));
+            if (!webDriverElement.isSelected()) webDriverElement.click();
 
             WebElement a4Paper = webDriver.findElement(By.xpath(PAPER_FORMAT_INPUT));
             if (!a4Paper.isSelected()) a4Paper.click();
