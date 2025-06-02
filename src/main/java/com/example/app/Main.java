@@ -24,7 +24,7 @@ public class Main {
     static final String SUBMIT_BTN = "/html/body/table[2]/tbody/tr/td[1]/div/form/p/input";
 
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\egorm\\Downloads\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.webDriver", "C:\\Users\\egorm\\Downloads\\chromedriver-win64\\chromedriver.exe");
         Path outputDir = Paths.get("result");
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = Map.of(
@@ -34,48 +34,48 @@ public class Main {
         );
         options.setExperimentalOption("prefs", prefs);
 
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver webDriver = new ChromeDriver(options);
 
         try {
             String content = Files.readString(Paths.get("data/data.txt"));
             Gson gson = new Gson();
-            MusicAlbum album = gson.fromJson(content, MusicAlbum.class);
+            MusicAlbum musicAlbum = gson.fromJson(content, MusicAlbum.class);
 
-            driver.manage().window().maximize();
-            driver.get("https://www.papercdcase.com/index.php");
+            webDriver.manage().window().maximize();
+            webDriver.get("https://www.papercdcase.com/index.php");
 
-            driver.findElement(By.xpath(ARTIST_INPUT)).sendKeys(album.getArtistName());
-            driver.findElement(By.xpath(TITLE_INPUT)).sendKeys(album.getTitle());
+            webDriver.findElement(By.xpath(ARTIST_INPUT)).sendKeys(musicAlbum.getArtistName());
+            webDriver.findElement(By.xpath(TITLE_INPUT)).sendKeys(musicAlbum.getTitle());
 
-            List<String> allTracks = album.getNameSongs();
+            List<String> allTracks = musicAlbum.getNameSongs();
 
             List<String> leftTracks = allTracks.subList(0, Math.min(8, allTracks.size()));
             List<String> rightTracks = allTracks.size() > 8 ? allTracks.subList(8, Math.min(16, allTracks.size())) : List.of();
 
             for (int i = 0; i < leftTracks.size(); i++) {
                 String xpath = String.format(TRACK_LEFT_INPUT, i + 1);
-                driver.findElement(By.xpath(xpath)).sendKeys(leftTracks.get(i));
+                webDriver.findElement(By.xpath(xpath)).sendKeys(leftTracks.get(i));
             }
 
             for (int i = 0; i < rightTracks.size(); i++) {
                 String xpath = String.format(TRACK_RIGHT_INPUT, i + 1);
-                driver.findElement(By.xpath(xpath)).sendKeys(rightTracks.get(i));
+                webDriver.findElement(By.xpath(xpath)).sendKeys(rightTracks.get(i));
             }
 
-            WebElement jewelCase = driver.findElement(By.xpath(CASE_TYPE_INPUT));
+            WebElement jewelCase = webDriver.findElement(By.xpath(CASE_TYPE_INPUT));
             if (!jewelCase.isSelected()) jewelCase.click();
 
-            WebElement a4Paper = driver.findElement(By.xpath(PAPER_FORMAT_INPUT));
+            WebElement a4Paper = webDriver.findElement(By.xpath(PAPER_FORMAT_INPUT));
             if (!a4Paper.isSelected()) a4Paper.click();
 
-            driver.findElement(By.xpath(SUBMIT_BTN)).click();
+            webDriver.findElement(By.xpath(SUBMIT_BTN)).click();
             Thread.sleep(5000);
 
 
         } catch (Exception e) {
             System.err.println("Ошибка выполнения: " + e.getMessage());
         } finally {
-            driver.quit();
+            webDriver.quit();
         }
     }
 }
