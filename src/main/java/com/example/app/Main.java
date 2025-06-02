@@ -49,17 +49,17 @@ public class Main {
 
             List<String> allTracks = musicAlbum.getNameSongs();
 
-            List<String> leftTracks = allTracks.subList(0, Math.min(8, allTracks.size()));
-            List<String> rightTracks = allTracks.size() > 8 ? allTracks.subList(8, Math.min(16, allTracks.size())) : List.of();
+            List<String> stringListLeft = allTracks.subList(0, Math.min(8, allTracks.size()));
+            List<String> stringListRight = allTracks.size() > 8 ? allTracks.subList(8, Math.min(16, allTracks.size())) : List.of();
 
-            for (int i = 0; i < leftTracks.size(); i++) {
+            for (int i = 0; i < stringListLeft.size(); i++) {
                 String xpath = String.format(TRACK_LEFT_INPUT, i + 1);
-                webDriver.findElement(By.xpath(xpath)).sendKeys(leftTracks.get(i));
+                webDriver.findElement(By.xpath(xpath)).sendKeys(stringListLeft.get(i));
             }
 
-            for (int i = 0; i < rightTracks.size(); i++) {
+            for (int i = 0; i < stringListRight.size(); i++) {
                 String xpath = String.format(TRACK_RIGHT_INPUT, i + 1);
-                webDriver.findElement(By.xpath(xpath)).sendKeys(rightTracks.get(i));
+                webDriver.findElement(By.xpath(xpath)).sendKeys(stringListRight.get(i));
             }
 
             WebElement webDriverElement = webDriver.findElement(By.xpath(CASE_TYPE_INPUT));
